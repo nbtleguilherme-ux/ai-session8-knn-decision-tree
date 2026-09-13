@@ -38,6 +38,23 @@ def tai_du_lieu():
     return df, wine
 
 
+def thong_ke_mo_ta(df: pd.DataFrame, feature_cols: list) -> pd.DataFrame:
+    """
+    Trả về bảng thống kê mô tả (transpose) đã làm tròn 4 chữ số.
+
+    Parameters
+    ----------
+    df           : pd.DataFrame
+    feature_cols : danh sách tên cột đặc trưng
+
+    Returns
+    -------
+    pd.DataFrame : describe().T.round(4)
+    """
+    stats = df[feature_cols].describe().T.round(4)
+    return stats
+
+
 # ---------------------------------------------------------------------------
 # TODO 1 — Kiểm tra giá trị thiếu
 # ---------------------------------------------------------------------------
