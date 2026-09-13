@@ -37,12 +37,11 @@ def chia_train_test(
     - Dùng train_test_split với stratify=y để giữ nguyên tỉ lệ nhóm.
     - Không chuẩn hóa ở đây — hàm này chỉ chia dữ liệu.
     """
-    return train_test_split(
-        X, y,
-        test_size=ti_le_test,
-        random_state=random_state,
-        stratify=y,
-    )
+    # TODO: Triển khai hàm này
+    # Bước 1: Gọi train_test_split(X, y, test_size=ti_le_test,
+    #                               random_state=random_state, stratify=y)
+    # Bước 2: return X_train, X_test, y_train, y_test
+    raise NotImplementedError("TODO 1: Hoàn thiện hàm chia_train_test()")
 
 
 # ---------------------------------------------------------------------------
@@ -76,7 +75,9 @@ def chuan_hoa(X_train: np.ndarray, X_test: np.ndarray):
     Nếu fit scaler trên cả X_test, bạn đã gây ra "data leakage" —
     thông tin từ tập test rò rỉ vào quá trình huấn luyện.
     """
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)
-    return scaler, X_train_scaled, X_test_scaled
+    # TODO: Triển khai hàm này
+    # Bước 1: scaler = StandardScaler()
+    # Bước 2: X_train_scaled = scaler.fit_transform(X_train)
+    # Bước 3: X_test_scaled  = scaler.transform(X_test)   ← KHÔNG fit lại!
+    # Bước 4: return scaler, X_train_scaled, X_test_scaled
+    raise NotImplementedError("TODO 2: Hoàn thiện hàm chuan_hoa()")

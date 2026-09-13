@@ -47,34 +47,17 @@ def tim_k_tot_nhat(
     - Trục x: 'k (số lượng hàng xóm)', trục y: 'Độ chính xác'.
     - Tiêu đề: 'KNN: Độ chính xác theo k'.
     """
-    dai_k = range(1, k_max + 1)
-    lich_su_train = []
-    lich_su_test = []
-
-    for k in dai_k:
-        mo_hinh = KNeighborsClassifier(n_neighbors=k)
-        mo_hinh.fit(X_train, y_train)
-        lich_su_train.append(mo_hinh.score(X_train, y_train))
-        lich_su_test.append(mo_hinh.score(X_test, y_test))
-
-    k_tot_nhat = 1 + int(np.argmax(lich_su_test))
-
-    plt.figure(figsize=(12, 5))
-    plt.plot(dai_k, lich_su_train, "b-o", markersize=5, label="Tập huấn luyện")
-    plt.plot(dai_k, lich_su_test, "r-s", markersize=5, label="Tập kiểm tra")
-    plt.axvline(
-        k_tot_nhat, color="green", linestyle="--", linewidth=1.5,
-        label=f"k tốt nhất = {k_tot_nhat}",
-    )
-    plt.xlabel("k (số lượng hàng xóm)")
-    plt.ylabel("Độ chính xác")
-    plt.title("KNN: Độ chính xác theo k")
-    plt.xticks(list(dai_k))
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-
-    return k_tot_nhat, lich_su_train, lich_su_test
+    # TODO: Triển khai hàm này
+    # Bước 1: Tạo dai_k = range(1, k_max + 1); lich_su_train = []; lich_su_test = []
+    # Bước 2: Lặp qua từng k:
+    #            mo_hinh = KNeighborsClassifier(n_neighbors=k)
+    #            mo_hinh.fit(X_train, y_train)
+    #            lich_su_train.append(mo_hinh.score(X_train, y_train))
+    #            lich_su_test.append(mo_hinh.score(X_test, y_test))
+    # Bước 3: k_tot_nhat = 1 + int(np.argmax(lich_su_test))
+    # Bước 4: Vẽ biểu đồ đường — plt.plot(...) × 2, plt.axvline(k_tot_nhat, ...)
+    # Bước 5: return k_tot_nhat, lich_su_train, lich_su_test
+    raise NotImplementedError("TODO 1: Hoàn thiện hàm tim_k_tot_nhat()")
 
 
 # ---------------------------------------------------------------------------
@@ -99,9 +82,11 @@ def huan_luyen_knn(
     -------
     KNeighborsClassifier đã được fit.
     """
-    mo_hinh = KNeighborsClassifier(n_neighbors=k)
-    mo_hinh.fit(X_train, y_train)
-    return mo_hinh
+    # TODO: Triển khai hàm này
+    # Bước 1: Tạo mo_hinh = KNeighborsClassifier(n_neighbors=k)
+    # Bước 2: mo_hinh.fit(X_train, y_train)
+    # Bước 3: return mo_hinh
+    raise NotImplementedError("TODO 2: Hoàn thiện hàm huan_luyen_knn()")
 
 
 # ---------------------------------------------------------------------------
@@ -140,22 +125,15 @@ def danh_gia_mo_hinh(
     - Vẽ ConfusionMatrixDisplay (figsize=(6,5)).
     - Tiêu đề biểu đồ: f'Ma trận nhầm lẫn — {tieu_de}'.
     """
-    du_doan = mo_hinh.predict(X_test)
-    do_cx = accuracy_score(y_test, du_doan)
-    ma_tran = confusion_matrix(y_test, du_doan)
-
-    print(f"=== Báo cáo phân loại — {tieu_de} ===")
-    print(classification_report(y_test, du_doan, target_names=class_names))
-
-    fig, ax = plt.subplots(figsize=(6, 5))
-    ConfusionMatrixDisplay(confusion_matrix=ma_tran, display_labels=class_names).plot(
-        cmap="Blues", ax=ax, colorbar=False
-    )
-    ax.set_title(f"Ma trận nhầm lẫn — {tieu_de}", fontsize=13)
-    plt.tight_layout()
-    plt.show()
-
-    return {"do_chinh_xac": do_cx, "du_doan": du_doan, "ma_tran": ma_tran}
+    # TODO: Triển khai hàm này
+    # Bước 1: du_doan = mo_hinh.predict(X_test)
+    # Bước 2: do_cx   = accuracy_score(y_test, du_doan)
+    # Bước 3: ma_tran = confusion_matrix(y_test, du_doan)
+    # Bước 4: In classification_report(y_test, du_doan, target_names=class_names)
+    # Bước 5: Vẽ ConfusionMatrixDisplay(confusion_matrix=ma_tran,
+    #              display_labels=class_names).plot(cmap='Blues', ax=ax)
+    # Bước 6: return {'do_chinh_xac': do_cx, 'du_doan': du_doan, 'ma_tran': ma_tran}
+    raise NotImplementedError("TODO 3: Hoàn thiện hàm danh_gia_mo_hinh()")
 
 
 # ---------------------------------------------------------------------------

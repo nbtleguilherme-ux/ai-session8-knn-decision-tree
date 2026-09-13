@@ -52,16 +52,16 @@ def goi_y_ruou(
     predict() trả về mảng → lấy phần tử [0].
     predict_proba() trả về ma trận xác suất → lấy hàng [0], sau đó cột [du_doan].
     """
-    mau = np.array([[thanh_phan[f] for f in feature_names]])
-
-    if isinstance(mo_hinh, KNeighborsClassifier):
-        mau_xu_ly = scaler.transform(mau)
-    else:
-        mau_xu_ly = mau
-
-    du_doan = mo_hinh.predict(mau_xu_ly)[0]
-    xac_suat = mo_hinh.predict_proba(mau_xu_ly)[0]
-
-    ten_nhom = class_names[du_doan]
-    do_tin_tuong = xac_suat[du_doan]
-    return f"Gợi ý: {ten_nhom}  (độ tự tin: {do_tin_tuong:.1%})"
+    # TODO: Triển khai hàm này
+    # Bước 1: mau = np.array([[thanh_phan[f] for f in feature_names]])
+    # Bước 2: Kiểm tra loại mô hình:
+    #           if isinstance(mo_hinh, KNeighborsClassifier):
+    #               mau_xu_ly = scaler.transform(mau)
+    #           else:  # DecisionTreeClassifier
+    #               mau_xu_ly = mau
+    # Bước 3: du_doan   = mo_hinh.predict(mau_xu_ly)[0]
+    #         xac_suat  = mo_hinh.predict_proba(mau_xu_ly)[0]
+    # Bước 4: ten_nhom      = class_names[du_doan]
+    #         do_tin_tuong  = xac_suat[du_doan]
+    # Bước 5: return f'Gợi ý: {ten_nhom}  (độ tự tin: {do_tin_tuong:.1%})'
+    raise NotImplementedError("TODO: Hoàn thiện hàm goi_y_ruou()")

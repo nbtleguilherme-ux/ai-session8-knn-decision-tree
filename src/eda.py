@@ -53,14 +53,18 @@ def kiem_tra_gia_tri_thieu(df: pd.DataFrame) -> pd.Series:
     Returns
     -------
     pd.Series : số lượng NaN mỗi cột (kể cả cột = 0).
+
+    Yêu cầu
+    -------
+    - Dùng df.isnull().sum() để đếm NaN mỗi cột.
+    - Nếu có NaN: in các cột bị thiếu; nếu không: in "Không có giá trị thiếu."
+    - Trả về pd.Series kết quả (kể cả cột có giá trị 0).
     """
-    so_nan = df.isnull().sum()
-    if so_nan.any():
-        print("Các cột có giá trị thiếu:")
-        print(so_nan[so_nan > 0])
-    else:
-        print("Không có giá trị thiếu. Dữ liệu đầy đủ.")
-    return so_nan
+    # TODO: Triển khai hàm này
+    # Bước 1: Tính số NaN mỗi cột
+    # Bước 2: Kiểm tra và in kết quả
+    # Bước 3: return Series
+    raise NotImplementedError("TODO 1: Hoàn thiện hàm kiem_tra_gia_tri_thieu()")
 
 
 # ---------------------------------------------------------------------------
@@ -87,30 +91,14 @@ def ve_phan_phoi_nhan(df: pd.DataFrame, col: str = "loai_ruou") -> plt.Figure:
     - Cùng bảng màu sns 'muted'.
     - Tiêu đề chung : 'Phân phối nhãn trong tập dữ liệu'.
     """
-    so_mau = df[col].value_counts()
-    mau_sac = sns.color_palette("muted", len(so_mau))
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-    axes[0].bar(so_mau.index, so_mau.values, color=mau_sac)
-    axes[0].set_title("Số mẫu theo nhóm rượu")
-    axes[0].set_xlabel("Nhóm rượu")
-    axes[0].set_ylabel("Số mẫu")
-    for i, v in enumerate(so_mau.values):
-        axes[0].text(i, v + 0.5, str(v), ha="center", fontweight="bold")
-
-    axes[1].pie(
-        so_mau.values,
-        labels=so_mau.index,
-        autopct="%1.1f%%",
-        colors=mau_sac,
-        startangle=90,
-    )
-    axes[1].set_title("Tỉ lệ phần trăm")
-
-    plt.suptitle("Phân phối nhãn trong tập dữ liệu", fontsize=14, fontweight="bold")
-    plt.tight_layout()
-    return fig
+    # TODO: Triển khai hàm này
+    # Bước 1: Đếm số mẫu mỗi nhóm: df[col].value_counts()
+    # Bước 2: Tạo bảng màu: sns.color_palette("muted", ...)
+    # Bước 3: Tạo figure với 2 subplot: plt.subplots(1, 2, figsize=(12, 5))
+    # Bước 4: Vẽ bar chart ở axes[0] — thêm nhãn số trên mỗi cột
+    # Bước 5: Vẽ pie chart ở axes[1] — autopct='%1.1f%%'
+    # Bước 6: plt.suptitle(...), plt.tight_layout(), return fig
+    raise NotImplementedError("TODO 2: Hoàn thiện hàm ve_phan_phoi_nhan()")
 
 
 # ---------------------------------------------------------------------------
@@ -142,34 +130,15 @@ def ve_histogram_dac_trung(
     - Ẩn các subplot thừa.
     - Tiêu đề chung: 'Phân phối đặc trưng theo nhóm rượu'.
     """
-    nhom_list = sorted(df[target_col].unique())
-    n_cols = 3
-    n_rows = -(-len(feature_cols) // n_cols)
-    mau_sac = sns.color_palette("muted", len(nhom_list))
-
-    fig, axes = plt.subplots(n_rows, n_cols, figsize=(18, n_rows * 4))
-    axes = axes.flatten()
-
-    for i, dac_trung in enumerate(feature_cols):
-        for j, nhom in enumerate(nhom_list):
-            subset = df[df[target_col] == nhom][dac_trung]
-            axes[i].hist(
-                subset, bins=15, alpha=0.6,
-                color=mau_sac[j], label=nhom, edgecolor="white",
-            )
-        axes[i].set_title(dac_trung, fontsize=11)
-        axes[i].set_xlabel("Giá trị")
-        axes[i].set_ylabel("Số mẫu")
-        axes[i].legend(fontsize=8)
-
-    for k in range(len(feature_cols), len(axes)):
-        axes[k].set_visible(False)
-
-    plt.suptitle(
-        "Phân phối đặc trưng theo nhóm rượu", fontsize=14, fontweight="bold", y=1.01
-    )
-    plt.tight_layout()
-    return fig
+    # TODO: Triển khai hàm này
+    # Bước 1: Lấy danh sách nhóm: df[target_col].unique()
+    # Bước 2: Tính n_rows = -(-len(feature_cols) // 3)  (ceiling division)
+    # Bước 3: Tạo figure lưới: plt.subplots(n_rows, 3, figsize=(18, n_rows*4))
+    # Bước 4: axes = axes.flatten()
+    # Bước 5: Lặp qua từng đặc trưng, với mỗi đặc trưng lặp qua từng nhóm → vẽ hist
+    # Bước 6: Ẩn subplot thừa: axes[k].set_visible(False)
+    # Bước 7: plt.suptitle(...), plt.tight_layout(), return fig
+    raise NotImplementedError("TODO 3: Hoàn thiện hàm ve_histogram_dac_trung()")
 
 
 # ---------------------------------------------------------------------------
@@ -197,19 +166,14 @@ def ve_heatmap_tuong_quan(df: pd.DataFrame, feature_cols: list) -> plt.Figure:
       vmin=-1, vmax=1, linewidths=0.5.
     - Tiêu đề: 'Ma trận tương quan giữa các đặc trưng'.
     """
-    tuong_quan = df[feature_cols].corr()
-    mat_na = np.triu(np.ones_like(tuong_quan, dtype=bool))
-
-    fig, ax = plt.subplots(figsize=(13, 10))
-    sns.heatmap(
-        tuong_quan, mask=mat_na,
-        annot=True, fmt=".2f",
-        cmap="RdBu_r", center=0, vmin=-1, vmax=1,
-        linewidths=0.5, ax=ax,
-    )
-    ax.set_title("Ma trận tương quan giữa các đặc trưng", fontsize=14, fontweight="bold")
-    plt.tight_layout()
-    return fig
+    # TODO: Triển khai hàm này
+    # Bước 1: tuong_quan = df[feature_cols].corr()
+    # Bước 2: mat_na = np.triu(np.ones_like(tuong_quan, dtype=bool))
+    # Bước 3: Tạo figure: fig, ax = plt.subplots(figsize=(13, 10))
+    # Bước 4: sns.heatmap(tuong_quan, mask=mat_na, annot=True, fmt='.2f',
+    #                     cmap='RdBu_r', center=0, vmin=-1, vmax=1, linewidths=0.5, ax=ax)
+    # Bước 5: Đặt tiêu đề, tight_layout, return fig
+    raise NotImplementedError("TODO 4: Hoàn thiện hàm ve_heatmap_tuong_quan()")
 
 
 # ---------------------------------------------------------------------------
@@ -239,14 +203,11 @@ def top_dac_trung_phan_biet(
     - Tính corr() của df[[*feature_cols, 'nhan_so']].
     - Lấy cột 'nhan_so', bỏ chính nó, abs(), sort_values, head(n).
     """
-    le = LabelEncoder()
-    df_tmp = df[list(feature_cols)].copy()
-    df_tmp["nhan_so"] = le.fit_transform(df["nhan"])
-
-    return (
-        df_tmp.corr()["nhan_so"]
-        .drop("nhan_so")
-        .abs()
-        .sort_values(ascending=False)
-        .head(n)
-    )
+    # TODO: Triển khai hàm này
+    # Bước 1: le = LabelEncoder()
+    #         df_tmp = df[list(feature_cols)].copy()
+    #         df_tmp["nhan_so"] = le.fit_transform(df["nhan"])
+    # Bước 2: Tính corr() của df_tmp
+    # Bước 3: Lấy cột "nhan_so", drop("nhan_so"), .abs(), .sort_values(ascending=False), .head(n)
+    # Bước 4: return kết quả
+    raise NotImplementedError("TODO 5: Hoàn thiện hàm top_dac_trung_phan_biet()")
